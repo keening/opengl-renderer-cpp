@@ -1,20 +1,17 @@
-#ifndef MESH_H
-#define MESH_H
-
-#include <GL/glew.h>
+#pragma once
 #include <vector>
 
-class Mesh {
+class mesh 
+{
 public:
-	Mesh(std::vector<float> vertices);
-    ~Mesh();
+    mesh();
+	mesh(std::vector<float> vertices);
+    ~mesh();
 
     void draw();
     void setup_vbo();
 
 private:
-    uint32_t m_vbo = 0, m_vao = 0;
-    std::vector<float> m_vertices = { 0 };
+    int vbo, vao;
+    std::vector<float> vertices = { 0 };
 };
-
-#endif

@@ -1,26 +1,19 @@
-#ifndef SHADER_H
-#define SHADER_H
-
+#pragma once
 #include <iostream>
 #include <fstream>
-
-#include <GL/glew.h>
-
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
-class Shader {
+class shader 
+{
 public:
-    Shader(const char *vertex_path, const char *frag_path);
-    ~Shader();
-   
+    shader();
+    shader(const char *vertex_path, const char *frag_path);
+    ~shader();
+
     void use();
-    uint32_t get_id();
 	void set_mat4(const std::string &name, const glm::mat4 &mat);
+    int get_id() { return id; }   
 
 private:
-	uint32_t m_program = 0;
+	int id = 0;
 };
-
-#endif

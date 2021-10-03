@@ -1,15 +1,10 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#pragma once
 
-#include <iostream>
-#include <GL/glew.h>
-
-class Texture {
+class texture 
+{
 public:
-    Texture(const char *texture_path);
-    ~Texture();
+    texture(const char *texture_path);
+    ~texture();
 
 private:
 };
-
-#endif

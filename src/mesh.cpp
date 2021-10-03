@@ -1,36 +1,38 @@
-#include "../include/mesh.hpp"
+#include <mesh.hpp>
+#include <glad/glad.h>
 
-Mesh::Mesh(std::vector<float> vertices)
+mesh::mesh(std::vector<float> vertices)
 {
-	glGenVertexArrays(1, &m_vao);
-	glBindVertexArray(m_vao);
+	glGenVertexArrays(1, (GLuint*)&this->vao);
+	glBindVertexArray(this->vao);
 
-    m_vertices = vertices;
+    this->vertices = vertices;
 	setup_vbo();
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3* sizeof(float)));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 
+                        (void*)(3* sizeof(float)));
 	glEnableVertexAttribArray(1);
-
 }
 
-Mesh::~Mesh()
+mesh::~mesh()
 {
-    glDeleteVertexArrays(1, &m_vao);
-    glDeleteBuffers(1, &m_vbo);
+    glDeleteVertexArrays(1, (GLuint*)&this->vao);
+    glDeleteBuffers(1, (GLuint*)&this->vbo);
 }
 
-void Mesh::setup_vbo()
+void mesh::setup_vbo()
 {
-    glGenBuffers(1, &m_vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * sizeof(float), m_vertices.data(), GL_STATIC_DRAW);
+    glGenBuffers(1, (GLuint*)&this->vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, this->vbo);
+    glBufferData(GL_ARRAY_BUFFER, this->vertices.size() * sizeof(float), 
+                this->vertices.data(), GL_STATIC_DRAW);
 }
 
-void Mesh::draw()
+void mesh::draw()
 {
-    glBindVertexArray(m_vao);
-    glDrawArrays(GL_TRIANGLES, 0, m_vertices.size() / 5);
+    glBindVertexArray(this->vao);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
 }

@@ -1,10 +1,13 @@
-#include "../include/texture.hpp"
+#include <texture.hpp>
+#include <iostream>
+#include <glad/glad.h>
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include <stb_image.h>
 
-Texture::Texture(const char *texture_path) {
-    uint32_t texture = 0;
+texture::texture(const char *texture_path) 
+{
+    GLuint texture = 0;
     glGenTextures(1, &texture);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -25,10 +28,13 @@ Texture::Texture(const char *texture_path) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
     } else {
-        std::cout << "Failed to load texture" << std::endl;
+        std::cout << "Failed to load texture: " << texture_path << std::endl;
     }
 
     stbi_image_free(data);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture);
 }
 
-Texture::~Texture() {}
+texture::~texture() {}
